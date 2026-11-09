@@ -1,0 +1,383 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 35" Vert | Elite Jump System</title>
+    <!-- Tailwind CSS -->
+    <script src="https://jsdelivr.net"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com"></script>
+    <style>
+        @import url('https://googleapis.com');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+        }
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .neon-glow-cyan {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen pb-12 antialiased">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-slate-800/80 px-4 py-3 sm:px-6">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-cyan-500 text-slate-950 p-2 rounded-xl font-bold shadow-lg shadow-cyan-500/20">
+                    <i data-lucide="zap" class="w-6 h-6 fill-current"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight text-white heading-font">PROJECT 35" VERT</h1>
+                    <p class="text-xs text-cyan-400 font-medium tracking-wide">PURE PLYOMETRIC VERTICAL LAUNCH SYSTEM</p>
+                </div>
+            </div>
+            
+            <!-- Quick Stat Badges -->
+            <div class="flex flex-wrap items-center gap-3 text-xs">
+                <div class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                    <span class="text-slate-400">Athlete Profile:</span>
+                    <span class="text-white font-bold">14 Y/O | 175 cm</span>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    <span class="text-slate-400">Target Goal:</span>
+                    <span class="text-amber-400 font-extrabold">35" Vertical</span>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 flex items-center gap-2">
+                    <span class="text-slate-400">Active Block:</span>
+                    <span class="text-cyan-400 font-bold" id="header-phase-label">Week 1 Foundation</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="max-w-7xl mx-auto px-4 mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Wing: Core Interactive Controls & Schedules (8 Columns) -->
+        <section class="lg:col-span-8 flex flex-col gap-6">
+            
+            <!-- Phase Navigation Selector Bar -->
+            <div class="glass-panel p-2 rounded-xl flex flex-wrap sm:flex-nowrap items-center gap-1 overflow-x-auto">
+                <button onclick="switchPhase(1)" id="phase-btn-1" class="phase-tab flex-1 min-w-[120px] text-center py-2 px-3 rounded-lg text-sm font-semibold tracking-wide transition-all bg-gradient-to-r from-cyan-600 to-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/10">
+                    🥇 Week 1: Foundational
+                </button>
+                <button onclick="switchPhase(2)" id="phase-btn-2" class="phase-tab flex-1 min-w-[120px] text-center py-2 px-3 rounded-lg text-sm font-medium tracking-wide text-slate-400 hover:text-slate-200 transition-all">
+                    🥈 Week 2: Volume Up
+                </button>
+                <button onclick="switchPhase(3)" id="phase-btn-3" class="phase-tab flex-1 min-w-[120px] text-center py-2 px-3 rounded-lg text-sm font-medium tracking-wide text-slate-400 hover:text-slate-200 transition-all">
+                    🔥 Week 3: Peak Blast
+                </button>
+                <button onclick="switchPhase(4)" id="phase-btn-4" class="phase-tab flex-1 min-w-[120px] text-center py-2 px-3 rounded-lg text-sm font-medium tracking-wide text-slate-400 hover:text-slate-200 transition-all">
+                    ⚡ Week 4: Deload Realize
+                </button>
+            </div>
+
+            <!-- Dynamic Workout Matrix Board -->
+            <div class="glass-panel p-6 rounded-2xl shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-48 h-48 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-4 mb-5 gap-3">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-white heading-font flex items-center gap-2">
+                            <i data-lucide="activity" class="w-5 h-5 text-cyan-400"></i>
+                            Active Training Blocks & Drills
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-0.5" id="phase-description-text">Focus on pristine landings, perfect tendon compression depth, and elastic stiffness parameters.</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl self-start sm:self-auto">
+                        <i data-lucide="clock" class="w-4 h-4 text-amber-400"></i>
+                        <span class="text-xs text-slate-300 font-medium">Recommended Rest: <strong class="text-amber-400 font-bold" id="phase-rest-value">120s</strong> between sets</span>
+                    </div>
+                </div>
+
+                <!-- Live Checklist Matrix Table -->
+                <div class="flex flex-col gap-3.5" id="drill-list-container">
+                    <!-- Loaded dynamically via JavaScript -->
+                </div>
+            </div>
+
+            <!-- Audio-Guided Interval & Recovery System Timer -->
+            <div class="glass-panel p-6 rounded-2xl shadow-lg border border-slate-800/80">
+                <h3 class="text-base font-bold text-white heading-font mb-4 flex items-center gap-2">
+                    <i data-lucide="timer" class="w-4 h-4 text-cyan-400"></i>
+                    Intra-Set Recovery & Assessment Timer
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-5 items-center">
+                    <div class="sm:col-span-5 bg-slate-950/60 p-4 rounded-xl border border-slate-900 flex flex-col items-center justify-center text-center">
+                        <div class="text-4xl font-black font-mono tracking-tight text-cyan-400" id="timer-display">02:00</div>
+                        <div class="text-[10px] text-slate-500 font-bold uppercase mt-1 tracking-widest" id="timer-status">SYSTEM READY</div>
+                    </div>
+                    <div class="sm:col-span-7 flex flex-col gap-3">
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            <strong class="text-slate-200">The Power of Complete Rest:</strong> Plyometric output rapidly depletes neural reserves. Shortchanging rest ruins vertical velocity gains. Ensure you rest for the full period!
+                        </p>
+                        <div class="flex items-center gap-2">
+                            <button onclick="toggleTimer()" id="timer-ctrl-btn" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-xl text-xs transition-all flex items-center justify-center gap-2 border border-slate-700/50 cursor-pointer">
+                                <i data-lucide="play" class="w-3.5 h-3.5"></i> Start Rest Interval
+                            </button>
+                            <button onclick="resetTimer()" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-slate-200 font-bold p-2 rounded-xl transition-all cursor-pointer">
+                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Right Wing: Metrics Sandbox & Structural Safety (4 Columns) -->
+        <section class="lg:col-span-4 flex flex-col gap-6">
+            
+            <!-- Target Jump Track & Metrics Sandbox -->
+            <div class="glass-panel p-6 rounded-2xl shadow-xl relative border border-slate-800/80 neon-glow-cyan">
+                <h3 class="text-base font-bold text-white heading-font mb-3.5 flex items-center gap-2">
+                    <i data-lucide="calculator" class="w-4 h-4 text-cyan-400"></i>
+                    Vertical Target Sandbox
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-1.5">Athlete Configurations</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-center">
+                                <div class="text-[10px] text-slate-500 font-bold uppercase">Height</div>
+Use code with caution.
+175 cm
+
+
+Target Vert
+35.0 inches
+
+
+Instant Lift Tracker
+Calculate Vertical
+
+
+Estimated Vert:
+24.5"
+
+
+Distance to Target Rim:
+Remaining: 10.5"
+
+
+
+
+Plyometric Biomechanics & Safety
+
+
+Arm Swing Coordination
+Drive your non-dominant arm straight up during take-off. Upward structural arm extension increases leverage, raising peak center of mass by up to 2 inches.
+
+
+
+Growth Plate Safety Matrix
+Prioritize silent, soft absorption mechanics upon landing. If patellar tendon soreness manifests along the front shin, stop plyometrics instantly.
+
+
+
+The 48-Hour Central Nervous System Rule
+Never target maximum jumping efforts on consecutive days. Ensure a minimum of 48 hours clears muscular fatigue boundaries completely.
+
+
+
+// Database parameters for the 4-week progression schedule
+const phaseData = {
+1: {
+title: "Week 1: Foundational Block",
+desc: "Establish baseline joint integrity, landing efficiency, and fundamental reactive patterns.",
+rest: "120s",
+drills: [
+{ name: "Ankle Pogos", specs: "3 Sets × 15 Reps", note: "Keep ankles locked, snap off the floor rapidly like a spring." },
+{ name: "Lateral Line Hops", specs: "3 Sets × 10 sec / leg", note: "Side-to-side rapid tracking over a single line." },
+{ name: "Countermovement Jumps (CMJ)", specs: "3 Sets × 4 Reps", note: "Focus on perfect horizontal hip balance and zero landing knee-cave." },
+{ name: "Broad to Vertical Jumps", specs: "3 Sets × 4 Reps", note: "Convert horizontal kinetic flight into an instantly explosive vertical launch." },
+{ name: "Scissor-Kick Jump Simulations", specs: "3 Sets × 5 Reps", note: "Focus on clean high-velocity hip rotation in mid-air." },
+{ name: "Lateral Skater Bounds", specs: "3 Sets × 6 Reps Total", note: "Cover maximum lateral distance smoothly while catching balance." }
+]
+},
+2: {
+title: "Week 2: Volume Up Block",
+desc: "Introduce higher neuromuscular volume limits as tendon adaptation begins to accelerate.",
+rest: "120s",
+drills: [
+{ name: "Ankle Pogos", specs: "3 Sets × 20 Reps", note: "Maintain strict landing timing and elastic energy pop." },
+{ name: "Lateral Line Hops", specs: "3 Sets × 12 sec / leg", note: "Increase fast tracking tempo; stay incredibly light on the feet." },
+{ name: "Countermovement Jumps (CMJ)", specs: "4 Sets × 4 Reps", note: "Drive arms back rapidly to gather aggressive vertical acceleration." },
+{ name: "Broad to Vertical Jumps", specs: "3 Sets × 5 Reps", note: "Minimize ground contact time between the horizontal transition phase." },
+{ name: "Scissor-Kick Jump Simulations", specs: "4 Sets × 5 Reps", note: "Simulate rapid high-velocity conversion speeds." },
+{ name: "Lateral Skater Bounds", specs: "3 Sets × 8 Reps Total", note: "Stabilize landing completely for 1 solid second upon floor strike." }
+]
+},
+3: {
+title: "Week 3: Peak Blast Block",
+desc: "Maximal fast-twitch system recruitment. Focus on 100% full-effort outputs on every single rep.",
+rest: "150s",
+drills: [
+{ name: "Ankle Pogos", specs: "4 Sets × 20 Reps", note: "Max explosive push through the toes and absolute forefoot stiffness." },
+{ name: "Lateral Line Hops", specs: "3 Sets × 15 sec / leg", note: "Maximum rapid movement speed over the floor boundary line." },
+{ name: "Countermovement Jumps (CMJ)", specs: "4 Sets × 5 Reps", note: "Try to break your personal peak height ceiling record on each jump." },
+{ name: "Broad to Vertical Jumps", specs: "4 Sets × 4 Reps", note: "Aggressive, high-velocity horizontal-to-vertical conversion dynamics." },
+{ name: "Scissor-Kick Jump Simulations", specs: "4 Sets × 6 Reps", note: "Perform deep, explosive drive cycles mimicking max extension contact." },
+{ name: "Lateral Skater Bounds", specs: "4 Sets × 8 Reps Total", note: "Push off with absolute horizontal force output boundaries." }
+]
+},
+4: {
+title: "Week 4: Deload Realize",
+desc: "Flush fatigue build-up. Let nervous system supercompensation unlock your true vertical flight potential.",
+rest: "150s",
+drills: [
+{ name: "Ankle Pogos", specs: "2 Sets × 15 Reps", note: "Crisp, fast, sub-maximal elastic execution mechanics." },
+{ name: "Lateral Line Hops", specs: "2 Sets × 10 sec / leg", note: "Fluid, effortless neurological balance coordination training." },
+{ name: "Countermovement Jumps (CMJ)", specs: "2 Sets × 4 Reps", note: "High quality, explosive but highly limited volume matrix output." },
+{ name: "Broad to Vertical Jumps", specs: "2 Sets × 3 Reps", note: "Focus on clean kinetic mechanics, completely avoiding local muscle burn." },
+{ name: "Scissor-Kick Jump Simulations", specs: "2 Sets × 4 Reps", note: "Relaxed fluid mid-air rotation tracking mechanics." },
+{ name: "Lateral Skater Bounds", specs: "2 Sets × 6 Reps Total", note: "Light, low-impact agility recovery work metrics." }
+]
+}
+};
+let currentActivePhase = 1;
+let countdownTimerInstance = null;
+let timeRemainingSeconds = 120;
+let isTimerActive = false;
+// Audio generator to signal intervals safely
+function triggerAudioChime(freq = 523.25, duration = 0.15) {
+try {
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const oscillatorNode = audioCtx.createOscillator();
+const gainNode = audioCtx.createGain();
+oscillatorNode.type = 'sine';
+oscillatorNode.frequency.setValueAtTime(freq, audioCtx.currentTime);
+gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+oscillatorNode.connect(gainNode);
+gainNode.connect(audioCtx.destination);
+oscillatorNode.start();
+oscillatorNode.stop(audioCtx.currentTime + duration);
+} catch (e) {
+console.log("Audio notification skipped due to browser sandbox limits.");
+}
+}
+// Render workout list items dynamically
+function renderPhaseDrills(phaseId) {
+const container = document.getElementById('drill-list-container');
+const data = phaseData[phaseId];
+// Re-sync basic header tracking parameters
+document.getElementById('header-phase-label').innerText = data.title.split(":")[0];
+document.getElementById('phase-description-text').innerText = data.desc;
+document.getElementById('phase-rest-value').innerText = data.rest;
+// Set up initial timer defaults according to current rules
+if (!isTimerActive) {
+timeRemainingSeconds = data.rest === "120s" ? 120 : 150;
+refreshTimerUI();
+}
+container.innerHTML = "";
+data.drills.forEach((drill, index) => {
+const uniqueInputId = drill-chk-${phaseId}-${index};
+const drillElement = document.createElement('div');
+drillElement.className = "flex items-start justify-between bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 hover:border-slate-700/60 transition-all gap-4";
+drillElement.innerHTML = `
+
+
+${drill.name}
+${drill.note}
+
+
+${drill.specs}
+`;
+container.appendChild(drillElement);
+});
+}
+function switchPhase(phaseId) {
+currentActivePhase = phaseId;
+document.querySelectorAll('.phase-tab').forEach(btn => {
+btn.className = "phase-tab flex-1 min-w-[120px] text-center py-2 px-3 rounded-lg text-sm font-medium tracking-wide text-slate-400 hover:text-slate-200 transition-all cursor-pointer";
+});
+const selectedBtn = document.getElementById(phase-btn-${phaseId});
+selectedBtn.className = "phase-tab flex-1 min-w-[120px] text-center py-2 px-3 rounded-lg text-sm font-semibold tracking-wide transition-all bg-gradient-to-r from-cyan-600 to-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/10 cursor-pointer";
+renderPhaseDrills(phaseId);
+}
+// Timer Operations System
+function refreshTimerUI() {
+const mins = Math.floor(timeRemainingSeconds / 60).toString().padStart(2, '0');
+const secs = (timeRemainingSeconds % 60).toString().padStart(2, '0');
+document.getElementById('timer-display').innerText = ${mins}:${secs};
+}
+function toggleTimer() {
+const btn = document.getElementById('timer-ctrl-btn');
+const statusLabel = document.getElementById('timer-status');
+if (isTimerActive) {
+// Pause Action Execution
+clearInterval(countdownTimerInstance);
+isTimerActive = false;
+btn.innerHTML = <i data-lucide="play" class="w-3.5 h-3.5"></i> Resume Rest;
+statusLabel.innerText = "INTERVAL PAUSED";
+statusLabel.className = "text-[10px] text-amber-500 font-bold uppercase mt-1 tracking-widest";
+} else {
+// Start Action Execution
+isTimerActive = true;
+btn.innerHTML = <i data-lucide="pause" class="w-3.5 h-3.5"></i> Pause Rest;
+statusLabel.innerText = "RECOVERING...";
+statusLabel.className = "text-[10px] text-cyan-400 font-bold uppercase mt-1 tracking-widest animate-pulse";
+countdownTimerInstance = setInterval(() => {
+if (timeRemainingSeconds > 0) {
+timeRemainingSeconds--;
+refreshTimerUI();
+if (timeRemainingSeconds === 10) {
+triggerAudioChime(440, 0.1); // Pre-alert sound at 10s
+}
+} else {
+// Timer completed execution path
+clearInterval(countdownTimerInstance);
+isTimerActive = false;
+triggerAudioChime(659.25, 0.4); // Final alarm tone execution
+btn.innerHTML = <i data-lucide="play" class="w-3.5 h-3.5"></i> Restart Rest;
+statusLabel.innerText = "EXPLODE NEXT SET!";
+statusLabel.className = "text-[10px] text-emerald-400 font-bold uppercase mt-1 tracking-widest";
+resetTimer();
+}
+}, 1000);
+}
+lucide.createIcons();
+}
+function resetTimer() {
+clearInterval(countdownTimerInstance);
+isTimerActive = false;
+const data = phaseData[currentActivePhase];
+timeRemainingSeconds = data.rest === "120s" ? 120 : 150;
+refreshTimerUI();
+const btn = document.getElementById('timer-ctrl-btn');
+const statusLabel = document.getElementById('timer-status');
+btn.innerHTML = <i data-lucide="play" class="w-3.5 h-3.5"></i> Start Rest Interval;
+statusLabel.innerText = "SYSTEM READY";
+statusLabel.className = "text-[10px] text-slate-500 font-bold uppercase mt-1 tracking-widest";
+lucide.createIcons();
+}
+// Metric Assessment Tool Sandbox Math
+function calculateMetrics() {
+const inputVal = parseFloat(document.getElementById('max-touch-input').value);
+const panel = document.getElementById('calc-result-panel');
+if (!inputVal || inputVal < 200 || inputVal > 400) {
+alert("Please input a realistic vertical touch height in cm (typically between 200cm and 385cm).");
+return;
+}
+// Approximate average standing reach for a 175cm athlete is roughly 225cm
+const calculatedReachCm = 225;
+const netVerticalCm = inputVal - calculatedReachCm;
+if (netVerticalCm <= 0) {
+alert("Touch height must exceed estimated standing reach (225cm). Shake off the dust and try jumping higher!");
+return;
+}
+// Conversion from cm to
